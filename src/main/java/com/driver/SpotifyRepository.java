@@ -96,29 +96,29 @@ public class SpotifyRepository {
     }
 
     public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
+        User user = getUserByMobile(mobile);
+        if (user == null) {
+            throw new Exception("User does not exist");
+        }
         Playlist playlist = createPlayList(title);
         List<Song> songs = getSongs();
         List<Song> playListSongs = songs.stream().filter(song -> song.getLength() == length).collect(Collectors.toList());
         playlist.setSongs(playListSongs);
-        User user = getUserByMobile(mobile);
-        if(user==null){
-            throw new Exception("User does not exist");
-        }
         playlist.setCreator(user);
         playlists.add(playlist);
         return playlist;
     }
 
     public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
+        User user = getUserByMobile(mobile);
+        if(user==null){
+            throw new Exception("User does not exist");
+        }
         Playlist playlist = createPlayList(title);
         List<Song> songs = getSongs();
         List<Song> playListSongs = songs.stream().filter(song -> songTitles.contains(song.getTitle()))
                 .collect(Collectors.toList());
         playlist.setSongs(playListSongs);
-        User user = getUserByMobile(mobile);
-        if(user==null){
-            throw new Exception("User does not exist");
-        }
         playlist.setCreator(user);
         playlists.add(playlist);
         return playlist;
@@ -139,12 +139,10 @@ public class SpotifyRepository {
 
     public Song likeSong(String mobile, String songTitle) throws Exception {
         List<Song> songs = getSongs();
-        Song song = songs.stream().filter(song1 -> song1.getTitle().equals(songTitle)).findAny().orElseThrow(()->{
-            return new Exception("Song does not exist");
-        });
+        Song song = songs.stream().filter(song1 -> song1.getTitle().equals(songTitle)).findAny().orElseThrow(()-> new Exception("Song does not exist"));
 
         List<String> likedUsers = song.getLikedUsers();
-        if (!likedUsers.contains(mobile)) {
+        if (likedUsers != null && !likedUsers.contains(mobile)) {
             song.getLikedUsers().add(mobile);
             song.setLikes(song.getLikes() + 1);
             List<Album> albums = getAlbums();
@@ -153,11 +151,13 @@ public class SpotifyRepository {
             if (album != null) {
                 Artist artist = getArtists().stream().filter(artist1 -> artist1.getName().equals(album.getArtistName()))
                         .findAny().orElse(null);
-                if (!artist.getLikedUsers().contains(mobile)) {
+                if (artist.getLikedUsers() != null && !artist.getLikedUsers().contains(mobile)) {
                     artist.setLikes(artist.getLikes() + 1);
                     artist.getLikedUsers().add(mobile);
                 }
             }
+        } else {
+            throw new Exception("User does not exist");
         }
 
         return song;
