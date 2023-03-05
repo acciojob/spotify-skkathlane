@@ -48,11 +48,11 @@ public class SpotifyService {
        return spotifyRepository.likeSong(mobile,songTitle);
     }
 
-    public String mostPopularArtist() {
+    public Artist mostPopularArtist() {
       return spotifyRepository.mostPopularArtist();
     }
 
-    public String mostPopularSong() {
+    public Song mostPopularSong() {
       return spotifyRepository.mostPopularSong();
     }
 }
