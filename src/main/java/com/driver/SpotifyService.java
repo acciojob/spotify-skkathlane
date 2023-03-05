@@ -53,6 +53,6 @@ public class SpotifyService {
     }
 
     public String mostPopularSong() {
-      return spotifyRepository.mostPopularArtist();
+      return spotifyRepository.mostPopularSong();
     }
 }

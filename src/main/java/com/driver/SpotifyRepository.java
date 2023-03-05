@@ -165,12 +165,16 @@ public class SpotifyRepository {
 
     public String mostPopularArtist() {
         List<Artist> artists = getArtists();
+        if(artists.isEmpty())
+            return null;
         artists.sort(Comparator.comparing(Artist::getLikes).reversed());
         return artists.get(0).getName();
     }
 
     public String mostPopularSong() {
         List<Song> songs = getSongs();
+        if(songs.isEmpty())
+            return null;
         songs.sort(Comparator.comparing(Song::getLikes).reversed());
         return songs.get(0).getTitle();
     }
