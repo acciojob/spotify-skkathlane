@@ -6,6 +6,16 @@ public class Artist {
     private String name;
     private int likes;
 
+    private List<String> likedUsers;
+
+    public List<String> getLikedUsers() {
+        return likedUsers;
+    }
+
+    public void setLikedUsers(List<String> likedUsers) {
+        this.likedUsers = likedUsers;
+    }
+
     public Artist(){
 
     }

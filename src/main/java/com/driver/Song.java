@@ -1,9 +1,30 @@
 package com.driver;
 
+import java.util.List;
+
 public class Song {
     private String title;
     private int length;
     private int likes;
+
+    public String getAlbumName() {
+        return albumName;
+    }
+
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName;
+    }
+
+    private String albumName;
+    private List<String> likedUsers;
+
+    public List<String> getLikedUsers() {
+        return likedUsers;
+    }
+
+    public void setLikedUsers(List<String> likedUsers) {
+        this.likedUsers = likedUsers;
+    }
 
     public Song(){
 
