@@ -15,11 +15,11 @@ public class SpotifyRepository {
     public HashMap<User, List<Playlist>> userPlaylistMap;
     public HashMap<Song, List<User>> songLikeMap;
 
-    private List<User> users;
-    private List<Song> songs;
-    private List<Playlist> playlists;
-    private List<Album> albums;
-    private List<Artist> artists;
+    public List<User> users;
+    public List<Song> songs;
+    public List<Playlist> playlists;
+    public List<Album> albums;
+    public List<Artist> artists;
 
     public List<User> getUsers() {
         return users;
